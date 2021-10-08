@@ -16,6 +16,54 @@ const getAllStudents = async (req, res) => {
   }
 };
 
+const getStudentById = async (req, res) => {
+  try {
+    const response = await Students.findOne({ _id: req.params.id });
+
+    if (!response || response.length === 0) {
+      return res.status(404).json({
+        error: true,
+        msg: `No student with the id of ${req.params.id}`,
+      });
+    }
+
+    return res.status(200).json({
+      data: response,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      msg: 'Internal Server Error',
+    });
+  }
+};
+
+const getStudentsByTurn = async (req, res) => {
+  try {
+    const response = await Students.find({
+      turn: req.query.turn,
+    });
+
+    if (!response) {
+      return res.status(404).json({
+        error: true,
+        msg: `No students in the turn ${req.query.turn}`,
+      });
+    }
+
+    return res.status(200).json({
+      data: response,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      msg: 'Internal Server Error',
+    });
+  }
+};
+
 const createStudent = async (req, res) => {
   try {
     if (
@@ -74,8 +122,37 @@ const updateStudent = async (req, res) => {
   }
 };
 
+const deleteStudent = async (req, res) => {
+  try {
+    const studentFound = await Students.findOneAndRemove({
+      _id: req.params.id,
+    });
+
+    if (!studentFound || studentFound.length === 0) {
+      return res.status(404).json({
+        error: true,
+        msg: `No student with the id ${req.params.id}`,
+      });
+    }
+
+    return res.status(202).json({
+      msg: 'Student deleted',
+      data: studentFound,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      msg: 'Internal Server Error',
+    });
+  }
+};
+
 module.exports = {
   getAllStudents,
+  getStudentById,
+  getStudentsByTurn,
   createStudent,
   updateStudent,
+  deleteStudent,
 };
