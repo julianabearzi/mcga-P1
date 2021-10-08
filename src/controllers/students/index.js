@@ -96,9 +96,37 @@ const updateStudent = async (req, res) => {
     });
   }
 };
+
+const deleteStudent = async (req, res) => {
+  try {
+    const studentFound = await Students.findOneAndRemove({
+      _id: req.params.id,
+    });
+
+    if (!studentFound || studentFound.length === 0) {
+      return res.status(404).json({
+        error: true,
+        msg: `No student with the id ${req.params.id}`,
+      });
+    }
+
+    return res.status(202).json({
+      msg: 'Student deleted',
+      data: studentFound,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      msg: 'Internal Server Error',
+    });
+  }
+};
+
 module.exports = {
   getAllStudents,
   getStudentById,
   createStudent,
   updateStudent,
+  deleteStudent,
 };

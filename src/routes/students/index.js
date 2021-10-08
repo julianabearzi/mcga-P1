@@ -13,6 +13,9 @@ router
 router.route('/').post(ValidateStudent, studentsController.createStudent);
 router
   .route('/:id')
+  .delete(param('id').isMongoId(), validator, studentsController.deleteStudent);
+router
+  .route('/:id')
   .put(
     param('id').isMongoId(),
     ValidateStudent,
