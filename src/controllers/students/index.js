@@ -45,7 +45,7 @@ const getStudentsByTurn = async (req, res) => {
       turn: req.query.turn,
     });
 
-    if (!response) {
+    if (!response || response.length === 0) {
       return res.status(404).json({
         error: true,
         msg: `No students in the turn ${req.query.turn}`,
