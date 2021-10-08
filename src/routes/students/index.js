@@ -4,8 +4,12 @@ const studentsController = require('../../controllers/students');
 
 const router = express.Router();
 const { ValidateStudent } = require('../../validators/students');
+const { validator } = require('../../middlewares/validate');
 
 router.route('/').get(studentsController.getAllStudents);
+router
+  .route('/:id')
+  .get(param('id').isMongoId(), validator, studentsController.getStudentById);
 router.route('/').post(ValidateStudent, studentsController.createStudent);
 router
   .route('/:id')
