@@ -9,6 +9,9 @@
     "dev": "nodemon src/index.js",
     "prepare": "husky install"
   },
+  "engines": {
+    "node": "10.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/julianabearzi/mcga-P1.git"
