@@ -21,6 +21,7 @@ const studentSchema = mongoose.Schema({
   turn: {
     type: String,
     enum: ['morning', 'afternoon'],
+    lowercase: true,
     required: true,
   },
   amount: {

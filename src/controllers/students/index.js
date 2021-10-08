@@ -39,6 +39,31 @@ const getStudentById = async (req, res) => {
   }
 };
 
+const getStudentsByTurn = async (req, res) => {
+  try {
+    const response = await Students.find({
+      turn: req.query.turn,
+    });
+
+    if (!response) {
+      return res.status(404).json({
+        error: true,
+        msg: `No students in the turn ${req.query.turn}`,
+      });
+    }
+
+    return res.status(200).json({
+      data: response,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      msg: 'Internal Server Error',
+    });
+  }
+};
+
 const createStudent = async (req, res) => {
   try {
     if (
@@ -126,6 +151,7 @@ const deleteStudent = async (req, res) => {
 module.exports = {
   getAllStudents,
   getStudentById,
+  getStudentsByTurn,
   createStudent,
   updateStudent,
   deleteStudent,
