@@ -119,7 +119,7 @@ const updateStudent = async (req, res) => {
     ) {
       return res.status(400).json({
         error: true,
-        msg: 'Missing fields to create a student',
+        msg: 'Missing fields to update student',
       });
     }
 
