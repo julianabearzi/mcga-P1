@@ -96,6 +96,16 @@ const createStudent = async (req, res) => {
 
 const updateStudent = async (req, res) => {
   try {
+    if (
+      req.body.name === '' ||
+      req.body.lastName === '' ||
+      req.body.course === ''
+    ) {
+      return res.status(400).json({
+        error: true,
+        msg: 'Missing fields to update student',
+      });
+    }
     const studentUpdated = await Students.findOneAndUpdate(
       { _id: req.params.id },
       req.body,
@@ -106,20 +116,6 @@ const updateStudent = async (req, res) => {
       return res.status(404).json({
         error: true,
         msg: `No student with the id ${req.params.id}`,
-      });
-    }
-
-    if (
-      !studentUpdated.name ||
-      !studentUpdated.lastName ||
-      !studentUpdated.age ||
-      !studentUpdated.course ||
-      !studentUpdated.turn ||
-      !studentUpdated.amount
-    ) {
-      return res.status(400).json({
-        error: true,
-        msg: 'Missing fields to update student',
       });
     }
 
