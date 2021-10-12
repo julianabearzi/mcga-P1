@@ -109,6 +109,20 @@ const updateStudent = async (req, res) => {
       });
     }
 
+    if (
+      !studentUpdated.name ||
+      !studentUpdated.lastName ||
+      !studentUpdated.age ||
+      !studentUpdated.course ||
+      !studentUpdated.turn ||
+      !studentUpdated.amount
+    ) {
+      return res.status(400).json({
+        error: true,
+        msg: 'Missing fields to update student',
+      });
+    }
+
     return res.status(201).json({
       msg: 'Student updated',
       data: studentUpdated,
