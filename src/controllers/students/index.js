@@ -4,10 +4,7 @@ const getAllStudents = async (req, res) => {
   try {
     const response = await Students.find();
 
-    return res.status(200).json({
-      data: response,
-      error: false,
-    });
+    return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({
       error: true,
@@ -27,10 +24,7 @@ const getStudentById = async (req, res) => {
       });
     }
 
-    return res.status(200).json({
-      data: response,
-      error: false,
-    });
+    return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({
       error: true,
@@ -52,10 +46,7 @@ const getStudentsByTurn = async (req, res) => {
       });
     }
 
-    return res.status(200).json({
-      data: response,
-      error: false,
-    });
+    return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({
       error: true,
@@ -82,10 +73,7 @@ const createStudent = async (req, res) => {
     const student = new Students(req.body);
     const newStudent = await student.save();
 
-    return res.status(201).json({
-      data: newStudent,
-      error: false,
-    });
+    return res.status(201).json(newStudent);
   } catch (error) {
     return res.status(500).json({
       error: true,
@@ -119,11 +107,7 @@ const updateStudent = async (req, res) => {
       });
     }
 
-    return res.status(201).json({
-      msg: 'Student updated',
-      data: studentUpdated,
-      error: false,
-    });
+    return res.status(201).json(studentUpdated);
   } catch (error) {
     return res.status(500).json({
       error: true,
@@ -145,11 +129,7 @@ const deleteStudent = async (req, res) => {
       });
     }
 
-    return res.status(202).json({
-      msg: 'Student deleted',
-      data: studentFound,
-      error: false,
-    });
+    return res.status(202).json(studentFound);
   } catch (error) {
     return res.status(500).json({
       error: true,
