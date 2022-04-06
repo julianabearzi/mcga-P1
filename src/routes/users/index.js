@@ -4,7 +4,9 @@ const usersController = require('../../controllers/users');
 
 const router = express.Router();
 const { validator } = require('../../middlewares/validate');
+const { validateJWT } = require('../../middlewares/validateJWT');
 
+router.route('/renew').get(validateJWT, usersController.revalidateToken);
 router
   .route('/login')
   .post(
